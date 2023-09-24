@@ -57,8 +57,8 @@ year_duration = (
     if current_year == creation_year
     else creation_year + " - " + current_year
 )
-copyright = year_duration + " MichalPokusa, TimCocks"
-author = "MichalPokusa, TimCocks"
+copyright = year_duration + " Michał Pokusa, Tim Cocks"
+author = "Michał Pokusa, Tim Cocks"
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the

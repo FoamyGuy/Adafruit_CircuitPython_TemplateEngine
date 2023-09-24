@@ -1,3 +1,3 @@
-# SPDX-FileCopyrightText: Copyright (c) 2023 MichalPokusa, TimCocks for Adafruit Industries
+# SPDX-FileCopyrightText: Copyright (c) 2023 Michał Pokusa, Tim Cocks
 #
 # SPDX-License-Identifier: Unlicense

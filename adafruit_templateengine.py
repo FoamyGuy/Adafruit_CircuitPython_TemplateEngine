@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: Copyright (c) 2023 MichalPokusa, TimCocks for Adafruit Industries
+# SPDX-FileCopyrightText: Copyright (c) 2023 Michał Pokusa, Tim Cocks
 #
 # SPDX-License-Identifier: MIT
 """
@@ -9,7 +9,7 @@ Templating engine to substitute variables into a template string.
 Templates can also include conditional logic and loops. Often used for web pages.
 
 
-* Author(s): MichalPokusa, TimCocks
+* Author(s): Michał Pokusa, Tim Cocks
 
 Implementation Notes
 --------------------
