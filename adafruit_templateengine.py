@@ -488,6 +488,9 @@ class Template:
 
         By default, the template is rendered as HTML. To render it as XML or Markdown, use the
         `language` parameter.
+
+        :param str template_string: String containing the template to be rendered
+        :param str language: Language for autoescaping. Defaults to HTML
         """
         self._template_function = create_template_function(template_string, language)
 
@@ -497,6 +500,10 @@ class Template:
         """
         Renders the template using the provided context and returns a generator that yields the
         rendered output.
+
+        :param dict context: Dictionary containing the context for the template
+        :param int chunk_size: Size of the chunks to be yielded. If ``None``, the generator yields
+            the template in chunks sized specifically for the given template
 
         Example::
 
@@ -517,6 +524,8 @@ class Template:
     def render(self, context: dict = None) -> str:
         """
         Render the template with the given context.
+
+        :param dict context: Dictionary containing the context for the template
 
         Example::
 
@@ -542,6 +551,9 @@ class FileTemplate(Template):
 
         By default, the template is rendered as HTML. To render it as XML or Markdown, use the
         `language` parameter.
+
+        :param str template_path: Path to a file containing the template to be rendered
+        :param str language: Language for autoescaping. Defaults to HTML
         """
         with open(template_path, "rt", encoding="utf-8") as template_file:
             template_string = template_file.read()
@@ -558,6 +570,11 @@ def render_string_iter(
     """
     Creates a `Template` from the given ``template_string`` and renders it using the provided
     ``context``. Returns a generator that yields the rendered output.
+
+    :param dict context: Dictionary containing the context for the template
+    :param int chunk_size: Size of the chunks to be yielded. If ``None``, the generator yields
+        the template in chunks sized specifically for the given template
+    :param str language: Language for autoescaping. Defaults to HTML
 
     Example::
 
@@ -582,6 +599,9 @@ def render_string(
     Creates a `Template` from the given ``template_string`` and renders it using the provided
     ``context``. Returns the rendered output as a string.
 
+    :param dict context: Dictionary containing the context for the template
+    :param str language: Language for autoescaping. Defaults to HTML
+
     Example::
 
         render_string(r"Hello {{ name }}!", {"name": "World"})
@@ -600,6 +620,11 @@ def render_template_iter(
     """
     Creates a `FileTemplate` from the given ``template_path`` and renders it using the provided
     ``context``. Returns a generator that yields the rendered output.
+
+    :param dict context: Dictionary containing the context for the template
+    :param int chunk_size: Size of the chunks to be yielded. If ``None``, the generator yields
+        the template in chunks sized specifically for the given template
+    :param str language: Language for autoescaping. Defaults to HTML
 
     Example::
 
@@ -623,6 +648,9 @@ def render_template(
     """
     Creates a `FileTemplate` from the given ``template_path`` and renders it using the provided
     ``context``. Returns the rendered output as a string.
+
+    :param dict context: Dictionary containing the context for the template
+    :param str language: Language for autoescaping. Defaults to HTML
 
     Example::
 
