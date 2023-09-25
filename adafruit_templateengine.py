@@ -11,9 +11,6 @@ Templates can also include conditional logic and loops. Often used for web pages
 
 * Author(s): Michał Pokusa, Tim Cocks
 
-Implementation Notes
---------------------
-
 **Software and Dependencies:**
 
 * Adafruit CircuitPython firmware for the supported boards:
@@ -39,8 +36,13 @@ class Language:  # pylint: disable=too-few-public-methods
     """
 
     HTML = "html"
+    """HTML language"""
+
     XML = "xml"
+    """XML language"""
+
     MARKDOWN = "markdown"
+    """Markdown language"""
 
 
 def html_safe(value: Any) -> str:
@@ -487,7 +489,7 @@ class Template:
         If memory is a concern, instantiate the template in a function or method that uses it.
 
         By default, the template is rendered as HTML. To render it as XML or Markdown, use the
-        `language` parameter.
+        ``language`` parameter.
 
         :param str template_string: String containing the template to be rendered
         :param str language: Language for autoescaping. Defaults to HTML
@@ -550,7 +552,7 @@ class FileTemplate(Template):
         If memory is a concern, instantiate the template in a function or method that uses it.
 
         By default, the template is rendered as HTML. To render it as XML or Markdown, use the
-        `language` parameter.
+        ``language`` parameter.
 
         :param str template_path: Path to a file containing the template to be rendered
         :param str language: Language for autoescaping. Defaults to HTML

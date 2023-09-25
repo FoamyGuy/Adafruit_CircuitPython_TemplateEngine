@@ -23,6 +23,18 @@ Introduction
 
 Templating engine to substitute variables into a template string. Templates can also include conditional logic and loops. Often used for web pages.
 
+Library is highly inspired by the
+`Jinja2 <https://jinja.palletsprojects.com/en/3.1.x/templates/>`_
+and `Django Templates <https://docs.djangoproject.com/en/4.2/ref/templates/>`_,
+but it does not implement all of their features and takes a different approach to some of them.
+
+Main diffrences from Jinja2 and Django Templates:
+
+- filter are not supported, and there is no plan to support them
+- all variables passed inside context must be accessed using the ``context`` object
+- you can call methods inside templates just like in Python
+- no support for nested blocks, although inheritance is supported
+- no support for custom tags
 
 Dependencies
 =============

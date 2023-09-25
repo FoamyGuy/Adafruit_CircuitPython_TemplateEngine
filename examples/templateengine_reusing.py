@@ -2,10 +2,10 @@
 #
 # SPDX-License-Identifier: Unlicense
 
-from adafruit_templateengine import render_string
+from adafruit_templateengine import Template
 
 
-template = r"""
+template_string = r"""
 <!DOCTYPE html>
 <html>
     <head>
@@ -17,6 +17,8 @@ template = r"""
 </html>
 """
 
+template = Template(template_string)
+
 context = {"name": ""}  # Put your name here
 
-print(render_string(template, context))
+print(template.render(context))

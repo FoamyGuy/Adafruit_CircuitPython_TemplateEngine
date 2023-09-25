@@ -26,10 +26,6 @@ Table of Contents
 
 
 .. toctree::
-    :caption: Related Products
-
-
-.. toctree::
     :caption: Other Links
 
     Download from GitHub <https://github.com/adafruit/Adafruit_CircuitPython_TemplateEngine/releases/latest>

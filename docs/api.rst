@@ -6,3 +6,4 @@
 
 .. automodule:: adafruit_templateengine
     :members:
+    :inherited-members:
