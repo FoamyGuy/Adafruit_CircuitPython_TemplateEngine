@@ -45,17 +45,17 @@ class Language:  # pylint: disable=too-few-public-methods
     """Markdown language"""
 
 
-def html_safe(value: Any) -> str:
+def safe_html(value: Any) -> str:
     """
     Encodes unsafe symbols in ``value`` to HTML entities and returns the string that can be safely
     used in HTML.
 
     Examples::
 
-        html_safe('<a href="https://circuitpython.org/">CircuitPython</a>')
+        safe_html('<a href="https://circuitpython.org/">CircuitPython</a>')
         # &lt;a href&equals;&quot;https&colon;&sol;&sol;circuitpython&period;org&sol;&quot;&gt;...
 
-        html_safe(10 ** (-10))
+        safe_html(10 ** (-10))
         # 1e&minus;10
     """
 
@@ -99,14 +99,14 @@ def html_safe(value: Any) -> str:
     )
 
 
-def xml_safe(value: Any) -> str:
+def safe_xml(value: Any) -> str:
     """
     Encodes unsafe symbols in ``value`` to XML entities and returns the string that can be safely
     used in XML.
 
     Example::
 
-        xml_safe('<a href="https://circuitpython.org/">CircuitPython</a>')
+        safe_xml('<a href="https://circuitpython.org/">CircuitPython</a>')
         # &lt;a href=&quot;https://circuitpython.org/&quot;&gt;CircuitPython&lt;/a&gt;
     """
 
@@ -120,34 +120,35 @@ def xml_safe(value: Any) -> str:
     )
 
 
-def markdown_safe(value: Any) -> str:
+def safe_markdown(value: Any) -> str:
     """
     Encodes unsafe symbols in ``value`` and returns the string that can be safely used in Markdown.
 
     Example::
 
-        markdown_safe('[CircuitPython](https://circuitpython.org/)')
+        safe_markdown('[CircuitPython](https://circuitpython.org/)')
         # \\[CircuitPython\\]\\(https://circuitpython.org/\\)
     """
 
     return (
         str(value)
-        .replace("#", "\\#")
-        .replace("*", "\\*")
-        .replace("[", "\\[")
-        .replace("]", "\\]")
+        .replace("_", "\\_")
+        .replace("-", "\\-")
+        .replace("!", "\\!")
         .replace("(", "\\(")
         .replace(")", "\\)")
+        .replace("[", "\\[")
+        .replace("]", "\\]")
+        .replace("*", "\\*")
+        .replace("*", "\\*")
+        .replace("&", "\\&")
+        .replace("#", "\\#")
+        .replace("`", "\\`")
+        .replace("+", "\\+")
         .replace("<", "\\<")
         .replace(">", "\\>")
-        .replace("!", "\\!")
         .replace("|", "\\|")
         .replace("~", "\\~")
-        .replace("&", "\\&")
-        .replace("`", "\\`")
-        .replace("-", "\\-")
-        .replace("+", "\\+")
-        .replace("*", "\\*")
     )
 
 
@@ -323,7 +324,7 @@ def _find_next_token(template: str):
     return _PRECOMPILED_TOKEN_PATTERN.search(template)
 
 
-def create_template_function(  # pylint: disable=,too-many-locals,too-many-branches,too-many-statements
+def _create_template_function(  # pylint: disable=,too-many-locals,too-many-branches,too-many-statements
     template: str,
     language: str = Language.HTML,
     *,
@@ -331,8 +332,6 @@ def create_template_function(  # pylint: disable=,too-many-locals,too-many-branc
     context_name: str = "context",
     dry_run: bool = False,
 ) -> "Generator[str] | str":
-    """Creates a template function from a template string."""
-
     # Resolve includes, blocks and extends
     template = _resolve_includes_blocks_and_extends(template)
 
@@ -365,7 +364,7 @@ def create_template_function(  # pylint: disable=,too-many-locals,too-many-branc
             if autoescape:
                 function_string += (
                     indent * indentation_level
-                    + f"yield {language.lower()}_safe({token[3:-3]})\n"
+                    + f"yield safe_{language.lower()}({token[3:-3]})\n"
                 )
             # Expression should not be escaped
             else:
@@ -494,7 +493,7 @@ class Template:
         :param str template_string: String containing the template to be rendered
         :param str language: Language for autoescaping. Defaults to HTML
         """
-        self._template_function = create_template_function(template_string, language)
+        self._template_function = _create_template_function(template_string, language)
 
     def render_iter(
         self, context: dict = None, *, chunk_size: int = None
