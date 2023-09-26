@@ -140,11 +140,13 @@ and then include it in multiple pages.
 
 .. literalinclude:: ../examples/footer.html
     :caption: examples/footer.html
+    :lines: 5-
     :language: html
     :linenos:
 
 .. literalinclude:: ../examples/base_without_footer.html
     :caption: examples/base_without_footer.html
+    :lines: 5-
     :language: html
     :emphasize-lines: 12
     :linenos:
@@ -171,11 +173,13 @@ This allows sharing whole layout, not only single parts.
 
 .. literalinclude:: ../examples/child.html
     :caption: examples/child.html
+    :lines: 5-
     :language: html
     :linenos:
 
 .. literalinclude:: ../examples/parent_layout.html
     :caption: examples/parent_layout.html
+    :lines: 5-
     :language: html
     :linenos:
 
@@ -217,8 +221,8 @@ Supported comment syntaxes:
 
 .. literalinclude:: ../examples/comments.html
     :caption: examples/comments.html
+    :lines: 5-
     :language: html
-    :lines: 1-
     :linenos:
 
 .. literalinclude:: ../examples/templateengine_comments.py
@@ -243,8 +247,8 @@ and in all ``Template`` constructors.
 
 .. literalinclude:: ../examples/autoescape.html
     :caption: examples/autoescape.html
+    :lines: 5-
     :language: html
-    :lines: 1-
     :linenos:
 
 .. literalinclude:: ../examples/autoescape.md
