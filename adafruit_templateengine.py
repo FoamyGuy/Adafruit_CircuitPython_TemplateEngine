@@ -204,6 +204,11 @@ def _resolve_includes(template: str):
     return template
 
 
+def _check_for_unsupported_nested_blocks(template: str):
+    if _find_next_block(template) is not None:
+        raise ValueError("Nested blocks are not supported")
+
+
 def _resolve_includes_blocks_and_extends(template: str):
     block_replacements: "dict[str, str]" = {}
 
@@ -238,6 +243,8 @@ def _resolve_includes_blocks_and_extends(template: str):
             ].decode("utf-8")
             # TODO: Uncomment when bug is fixed
             # block_content = template[block_match.end() : endblock_match.start()]
+
+            _check_for_unsupported_nested_blocks(block_content)
 
             if block_name in block_replacements:
                 block_replacements[block_name] = block_replacements[block_name].replace(
@@ -276,6 +283,8 @@ def _replace_blocks_with_replacements(template: str, replacements: "dict[str, st
         # Block with default content
         else:
             block_content = template[block_match.end() : endblock_match.start()]
+
+            _check_for_unsupported_nested_blocks(block_content)
 
             # No replacement for this block, use default content
             if block_name not in replacements:
