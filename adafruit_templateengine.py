@@ -353,7 +353,7 @@ def _create_template_function(  # pylint: disable=,too-many-locals,too-many-bran
 
     # Keep track of the tempalte state
     forloop_iterables: "list[str]" = []
-    autoescape_modes: "list[bool]" = [True]
+    autoescape_modes: "list[bool]" = ["default_on"]
 
     # Resolve tokens
     while (token_match := _find_next_token(template)) is not None:
@@ -367,7 +367,7 @@ def _create_template_function(  # pylint: disable=,too-many-locals,too-many-bran
 
         # Token is an expression
         if token.startswith(r"{{ "):
-            autoescape = autoescape_modes[-1]
+            autoescape = autoescape_modes[-1] in ("on", "default_on")
 
             # Expression should be escaped with language-specific function
             if autoescape:
@@ -430,12 +430,11 @@ def _create_template_function(  # pylint: disable=,too-many-locals,too-many-bran
             # Token is autoescape mode change
             elif token.startswith(r"{% autoescape "):
                 mode = token[14:-3]
-                if mode not in ["on", "off"]:
+                if mode not in ("on", "off"):
                     raise ValueError(f"Unknown autoescape mode: {mode}")
-
-                autoescape_modes.append(mode == "on")
+                autoescape_modes.append(mode)
             elif token == r"{% endautoescape %}":
-                if len(autoescape_modes) == 1:
+                if autoescape_modes == ["default_on"]:
                     raise ValueError("No autoescape mode to end")
                 autoescape_modes.pop()
 
